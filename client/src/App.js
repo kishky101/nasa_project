@@ -4,11 +4,10 @@ import {
 import {
   Arwes,
   SoundsProvider,
-  // ThemeProvider,
+  ThemeProvider,
   createSounds,
   createTheme,
 } from "arwes";
-import ThemeProvider  from "arwes/src/ThemeProvider";
 import AppLayout from "./pages/AppLayout";
 
 import { theme, resources, sounds } from "./settings";
