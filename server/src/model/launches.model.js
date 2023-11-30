@@ -122,28 +122,49 @@ async function saveLaunch(newLaunch) {
     }
 }
 
-async function scheduleNewLaunch(newLaunch) {
-    try {
-        const planet = await planets.findOne({keplerName: newLaunch.target});
+async function scheduleNewLaunch(launch) {
+    const planet = await planets.findOne({
+      keplerName: launch.target,
+    });
 
-        if(!planet) {
-            throw new Error(`Planet doesn't exist in list of planets`)
-        }
-
-        const latestFlightNumber = await getLatestFlightNumber() + 1;
-
-        const latestLaunch = Object.assign(newLaunch, {
-            flightNumber: latestFlightNumber,
-            customers: ['ZTM', 'NASA'],
-            upcoming: true,
-            success: true,
-        })
-    
-        return await saveLaunch(latestLaunch);
-    } catch (error) {
-        throw new Error(`couldn't schedule new launch ${error}`)
+    if (!planet) {
+      throw new Error('No matching planet found');
     }
+
+    const newFlightNumber = await getLatestFlightNumber() + 1;
+
+    const newLaunch = Object.assign(launch, {
+      success: true,
+      upcoming: true,
+      customers: ['Zero to Mastery', 'NASA'],
+      flightNumber: newFlightNumber,
+    });
+
+    await saveLaunch(newLaunch);
 }
+
+// async function scheduleNewLaunch(newLaunch) {
+//     try {
+//         const planet = await planets.findOne({keplerName: newLaunch.target});
+
+//         if(!planet) {
+//             throw new Error(`Planet doesn't exist in list of planets`)
+//         }
+
+//         const latestFlightNumber = await getLatestFlightNumber() + 1;
+
+//         const latestLaunch = Object.assign(newLaunch, {
+//             flightNumber: latestFlightNumber,
+//             customers: ['ZTM', 'NASA'],
+//             upcoming: true,
+//             success: true,
+//         })
+
+//         return await saveLaunch(latestLaunch);
+//     } catch (error) {
+//         throw new Error(`couldn't schedule new launch ${error}`)
+//     }
+// }
 
 
 async function abortLaunch(launchId) {
