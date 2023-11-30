@@ -141,7 +141,7 @@ async function scheduleNewLaunch(newLaunch) {
     
         return await saveLaunch(latestLaunch);
     } catch (error) {
-        throw new Error(`couldn't schedule new launch`)
+        throw new Error(`couldn't schedule new launch ${error}`)
     }
 }
 
