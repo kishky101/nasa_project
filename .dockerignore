@@ -1,0 +1,7 @@
+.git
+
+.trunk
+
+*/node_modules
+
+server/public
